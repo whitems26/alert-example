@@ -19,7 +19,19 @@ class ViewController: UIViewController {
             print("on Cancel!!!")})
         
         
+        let facebookBtn = UIAlertAction(title: "FaceBook", style: .default){
+            (UIAlertAction) -> Void in
+            print("FaceBook")
+        }
+        
+        let twitterBtn = UIAlertAction(title: "Twitter", style: .default, handler: {
+            (UIAlertAction) -> Void in
+            print("Twitter")
+        })
+        
         alert.addAction(cancelBtn)
+        alert.addAction(facebookBtn)
+        alert.addAction(twitterBtn)
         
         self.present(alert, animated: true, completion: {() -> Void in
         print("Show action sheet")})
@@ -27,6 +39,40 @@ class ViewController: UIViewController {
     }
     
     @IBAction func showAlert(_ sender: Any) {
+        
+        let loginAlert = UIAlertController(title: "Log In", message: "Input your ID and Password", preferredStyle: .alert)
+        
+        loginAlert.addTextField(configurationHandler: {
+            textField in
+            textField.placeholder = "ID"
+        })
+        
+        loginAlert.addTextField(configurationHandler: {
+            textField in
+            textField.placeholder = "Password"
+            textField.isSecureTextEntry = true
+        })
+        
+        loginAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            
+            
+        loginAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: {
+                alertAction in
+                
+                let id = loginAlert.textFields?[0].text
+                let pw = loginAlert.textFields?[1].text
+                
+                if id == "test" && pw == "1234"{
+                    print("Success")
+                }
+                else{
+                    print("Fail")
+                }
+            }))
+            
+        self.present(loginAlert, animated: true, completion: {
+            print("show Alert ")
+        })
     }
     
     override func viewDidLoad() {
